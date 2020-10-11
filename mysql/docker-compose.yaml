@@ -1,0 +1,20 @@
+version : '3'
+
+services:
+    mysql:
+        image: mysql:8.0
+        container_name: mysql
+        restart: unless-stopped
+        environment:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: default_schema
+        volumes:
+        - ./data:/var/lib/mysql
+        ports:
+        - "127.0.0.1:3306:3306"
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        links:
+            - mysql:db
+        ports:
+        - "127.0.0.1:10080:80"
